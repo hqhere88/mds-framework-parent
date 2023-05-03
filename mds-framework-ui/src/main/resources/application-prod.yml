@@ -1,0 +1,10 @@
+#server setting
+server:
+  port: 8088
+
+vaadin:
+  compatibilityMode: false
+  whitelisted-packages:logging: com.vaadin,org.vaadin,dev.hilla,com.example.application
+  level:
+    org:
+      atmosphere: warn

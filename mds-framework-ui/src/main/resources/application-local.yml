@@ -1,0 +1,13 @@
+#服务配置
+server:
+  port: 8090
+  max-http-header-size: 10240
+
+vaadin:
+  compatibilityMode: false
+  whitelisted-packages:logging: com.vaadin,org.vaadin,dev.hilla,com.example.application
+  level:
+    org:
+      atmosphere: warn
+
+
