@@ -3,9 +3,14 @@ package org.vaadin.example.views;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -13,7 +18,9 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
+import org.vaadin.example.views.Message.MessagesBasic;
 import org.vaadin.example.views.empty.EmptyView;
 import org.vaadin.example.views.helloworld.HelloWorldView;
 import org.vaadin.example.views.list.ListView;
@@ -95,15 +102,32 @@ public class MainLayout extends AppLayout {
         toggle.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
+
         viewTitle = new H1();
         //viewTitle.addClassNames("text-l", "m-m");
         viewTitle.addClassNames("m-0", "text-l");
         Button logout = new Button("Log out", e -> Notification.show("Hello "));
 
-        HorizontalLayout header = new HorizontalLayout(toggle, viewTitle, logout);
-        // Header header = new Header(toggle, viewTitle);
-        //header.addClassNames("bg-base", "border-b", "border-contrast-10", "box-border", "flex", "h-xl", "items-center",
-        //        "w-full");
+        Avatar avatar = new Avatar("logo");
+        avatar.setImage("images/logo.png");
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
+
+        MenuItem menuItem = menuBar.addItem(avatar);
+        SubMenu subMenu = menuItem.getSubMenu();
+        subMenu.addItem("Profile");
+        subMenu.addItem("Account");
+        subMenu.addItem("Preferences");
+        subMenu.addItem("Settings");
+        subMenu.addItem("Help");
+        subMenu.add(new Hr());
+        subMenu.addItem(logout);
+
+        HorizontalLayout header = new HorizontalLayout(toggle, viewTitle, menuBar);
+        /** Header header = new Header(toggle, viewTitle);
+         *   header.addClassNames("bg-base", "border-b", "border-contrast-10", "box-border", "flex", "h-xl", "items-center","w-full");
+         */
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.expand(viewTitle);
         header.setWidth("100%");
@@ -144,6 +168,7 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("Hello World", "la la-globe", HelloWorldView.class), //
                // new MenuItemInfo("MyList", "la la-th", MyListView.class), //
+                new MenuItemInfo("Messages-basic", "la la-th", MessagesBasic.class), //
 
                 new MenuItemInfo("List", "la la-th", ListView.class), //
 /*
