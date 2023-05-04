@@ -11,7 +11,7 @@ The project consists of the following three modules:
 - parent project: common metadata and configuration
 - mds-framework-dependencies: dependencies (pom)
 - mds-framework-ui: main application module that includes views (war)
-- mds-framework-module: sub module (jar)
+- mds-framework-module: sub module (pom)
   - mds-framework-common: common (jar)
   - mds-framework-controller: controller (jar)
   - mds-framework-service: service (jar)
