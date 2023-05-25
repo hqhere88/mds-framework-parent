@@ -46,6 +46,11 @@
                <version>${project.parent.version}</version>
            </dependency>
            <dependency>
+               <groupId>${project.groupId}</groupId>
+               <artifactId>mds-framework-service</artifactId>
+               <version>${project.parent.version}</version>
+           </dependency>
+           <dependency>
                <groupId>com.vaadin</groupId>
                <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>

@@ -13,11 +13,11 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
-import org.vaadin.example.data.entity.Company;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
-import org.vaadin.example.data.entity.Contact;
-import org.vaadin.example.data.entity.Status;
+import mds.framework.entity.Company;
+import mds.framework.entity.Contact;
+import mds.framework.entity.Status;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package org.vaadin.example.views.list;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.notification.Notification;
-import org.vaadin.example.data.entity.Contact;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -11,14 +10,18 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import mds.framework.entity.Person;
+import mds.framework.service.DataService;
 import org.vaadin.example.views.MainLayout;
 import java.util.Collections;
+import java.util.List;
+
 
 
 @PageTitle("Contacts | Vaadin CRM")
 @Route(value = "List", layout = MainLayout.class)
 public class ListView extends VerticalLayout {
-    Grid<Contact> grid = new Grid<>(Contact.class);
+    Grid<Person> grid = new Grid<>(Person.class);
     TextField filterText = new TextField();
     ContactForm form;
 
@@ -49,9 +52,12 @@ public class ListView extends VerticalLayout {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
         grid.setColumns("firstName", "lastName", "email");
-        grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
-        grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
+        grid.addColumn(contact -> contact.getStatus()).setHeader("Status");
+        grid.addColumn(contact -> contact.getAddress().getCountry()).setHeader("Country");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        List<Person> people = DataService.getPeople();
+        grid.setItems(people);
     }
 
     private HorizontalLayout getToolbar() {

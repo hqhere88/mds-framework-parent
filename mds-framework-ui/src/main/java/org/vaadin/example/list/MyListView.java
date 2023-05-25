@@ -1,9 +1,7 @@
 package org.vaadin.example.list;
 
-import com.sun.mail.imap.protocol.Item;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -17,12 +15,12 @@ import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
-import org.vaadin.example.data.entity.Person;
+import mds.framework.entity.Person;
+import mds.framework.service.DataService;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
+import java.util.stream.Stream;
 
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
 @Theme(themeFolder = "flowcrmtutorial")
@@ -63,22 +61,28 @@ public class MyListView extends VerticalLayout {
 
         HorizontalLayout layout = new HorizontalLayout();
         // Have some data
+        /**
         List<Person> people = Arrays.asList(
                 new Person("Nicolaus Copernicus", 1543),
                 new Person("Galileo Galilei", 1564),
                 new Person("Johannes Kepler", 1571));
+        */
+        List<Person> people = DataService.getPeople();
 
 // Create a grid bound to the list
         Grid<Person> grid = new Grid<>(Person.class, false);
         grid.addClassNames("Person-grid");
         grid.setSizeFull();
-        grid.setItems(people);
-        grid.addColumn(person -> person.getName().split(" ")[0])
+        if (people!=null){
+            grid.setItems(people);
+        }
+
+        grid.addColumn(person -> person.getFirstName())
                 .setHeader("First name")
                 .setFlexGrow(0)
                 .setWidth("150px")
                 .setResizable(false);
-        grid.addColumn(person -> person.getName().split(" ")[1])
+        grid.addColumn(person -> person.getLastName())
                 .setHeader("Last name")
                 .setFlexGrow(0)
                 .setWidth("150px")
@@ -86,16 +90,16 @@ public class MyListView extends VerticalLayout {
         /**
          * grid.addColumns("age", "address.postalCode");
          * grid.addColumn(Person::getName).setHeader("Name");
-         */
-        grid.addColumn(Person::getYearOfBirth)
-                .setHeader("Year of birth");
 
+        // grid.addColumn(Person::getYearOfBirth)
+        //        .setHeader("Year of birth");
+         */
 
         grid.addColumn(TemplateRenderer.<Person>of(
                         "<button on-click='handleUpdate'>Update</button>" +
                         "<button on-click='handleRemove'>Remove</button>")
                 .withEventHandler("handleUpdate", person -> {
-                    person.setName(person.getName() + " Updated");
+                    person.setFirstName(person.getFirstName() + " Updated");
                     grid.getDataProvider().refreshItem(person);
                 }).withEventHandler("handleRemove", person -> {
                     ListDataProvider<Person> dataProvider =
