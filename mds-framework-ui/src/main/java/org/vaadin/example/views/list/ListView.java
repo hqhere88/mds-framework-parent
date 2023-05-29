@@ -1,9 +1,9 @@
 package org.vaadin.example.views.list;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -11,12 +11,15 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import mds.framework.entity.Person;
-import mds.framework.service.DataService;
+import mds.framework.service.IDataService;
+import mds.framework.service.impl.DataServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.vaadin.example.views.MainLayout;
+
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
-
-
 
 @PageTitle("Contacts | Vaadin CRM")
 @Route(value = "List", layout = MainLayout.class)
@@ -25,7 +28,12 @@ public class ListView extends VerticalLayout {
     TextField filterText = new TextField();
     ContactForm form;
 
-    public ListView() {
+    @Resource(name="dataService")
+   // @Resource(type = DataServiceImpl.class)
+   private final IDataService dataService;
+
+    public ListView(IDataService dataService) {
+        this.dataService = dataService;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -56,8 +64,8 @@ public class ListView extends VerticalLayout {
         grid.addColumn(contact -> contact.getAddress().getCountry()).setHeader("Country");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
-        List<Person> people = DataService.getPeople();
-        grid.setItems(people);
+        List<Person> people =  dataService.getPeople();
+       grid.setItems(people);
     }
 
     private HorizontalLayout getToolbar() {

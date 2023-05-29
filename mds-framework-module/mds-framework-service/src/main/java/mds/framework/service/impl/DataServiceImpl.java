@@ -1,13 +1,15 @@
-package mds.framework.service;
+package mds.framework.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mds.framework.entity.Country;
 import mds.framework.entity.Person;
+import mds.framework.entity.Card;
 import mds.framework.entity.Report;
 import mds.framework.entity.UserPermissions;
+import mds.framework.service.IDataService;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
 
-import javax.smartcardio.Card;
 import javax.xml.transform.Templates;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class DataService {
+@Service("dataService")
+public class DataServiceImpl implements IDataService {
 
-    public static <T> T getItems(Class<T> clazz, String dataFileName) {
+    @Override
+    public <T> T getItems(Class<T> clazz, String dataFileName) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             InputStream stream = new ClassPathResource("data/" + dataFileName)
@@ -29,7 +33,8 @@ public class DataService {
         return null;
     }
 
-    public static List<Person> getPeople() {
+    @Override
+    public List<Person> getPeople() {
         List<Person> people = Arrays
                 .asList(Objects.requireNonNull(getItems(Person[].class, "people.json")));
 
@@ -42,16 +47,19 @@ public class DataService {
         return people;
     }
 
-    public static List<Person> getPeople(int count) {
+    @Override
+    public List<Person> getPeople(int count) {
         return getPeople().subList(0, count);
     }
 
-    public static List<Person> getPeople(int count, Integer managerId) {
+    @Override
+    public List<Person> getPeople(int count, Integer managerId) {
         List<Person> people = getPeople(managerId);
         return people.subList(0, count);
     }
 
-    public static List<String> getProfessions() {
+    @Override
+    public List<String> getProfessions() {
         Person[] people = Objects.requireNonNull(getItems(Person[].class, "people.json"));
         ArrayList<String> professions = new ArrayList<>();
         for (Person person : people) {
@@ -63,43 +71,44 @@ public class DataService {
         return professions;
     }
 
-    /**
-     * Get employees for a given manager.
-     */
-    public static List<Person> getPeople(Integer managerId) {
+    @Override
+    public List<Person> getPeople(Integer managerId) {
         List<Person> people = new ArrayList<>(getPeople());
         people.removeIf(person -> person.getManagerId() == null
                 || !person.getManagerId().equals(managerId));
         return people;
     }
 
-    /**
-     * Get all managers.
-     */
-    public static List<Person> getManagers() {
+    @Override
+    public List<Person> getManagers() {
         List<Person> people = new ArrayList<>(getPeople());
         people.removeIf(person -> !person.isManager());
         return people;
     }
 
-    public static Templates getTemplates() {
+    @Override
+    public Templates getTemplates() {
         return getItems(Templates.class, "templates.json");
     }
 
-    public static List<Card> getCards() {
+    @Override
+    public List<Card> getCards() {
         return Arrays.asList(Objects.requireNonNull(getItems(Card[].class, "cards.json")));
     }
 
-    public static List<Country> getCountries() {
+    @Override
+    public List<Country> getCountries() {
         return Arrays.asList(Objects.requireNonNull(getItems(Country[].class, "countries.json")));
     }
 
-    public static List<UserPermissions> getUserPermissions() {
+    @Override
+    public List<UserPermissions> getUserPermissions() {
         return Arrays
                 .asList(Objects.requireNonNull(getItems(UserPermissions[].class, "permissions.json")));
     }
 
-    public static List<Report> getReports() {
+    @Override
+    public List<Report> getReports() {
         return Arrays.asList(Objects.requireNonNull(getItems(Report[].class, "reports.json")));
     }
 }

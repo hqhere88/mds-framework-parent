@@ -14,6 +14,7 @@
         <module>mds-framework-user-defined-component</module>
         <module>mds-framework-dependencies</module>
         <module>mds-framework-module</module>
+        <module>mds-framework-api</module>
     </modules>
 
     <parent>

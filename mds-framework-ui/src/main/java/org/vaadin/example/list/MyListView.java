@@ -16,11 +16,11 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import mds.framework.entity.Person;
-import mds.framework.service.DataService;
+import mds.framework.service.IDataService;
 
+import javax.annotation.Resource;
 import java.io.InputStream;
 import java.util.List;
-import java.util.stream.Stream;
 
 //@PWA(name = "Flow CRM Tutorial", shortName = "Flow CRM Tutorial", enableInstallPrompt = false)
 @Theme(themeFolder = "flowcrmtutorial")
@@ -28,7 +28,11 @@ import java.util.stream.Stream;
 @Route(value = "MyList")
 public class MyListView extends VerticalLayout {
 
-    public MyListView() {
+    @Resource(name="dataService")
+    private final IDataService dataService;
+
+    public MyListView(IDataService dataService) {
+        this.dataService = dataService;
         setSizeFull();
         HorizontalLayout layout_01 = new HorizontalLayout();
         Icon icon = VaadinIcon.VAADIN_H.create();
@@ -67,7 +71,7 @@ public class MyListView extends VerticalLayout {
                 new Person("Galileo Galilei", 1564),
                 new Person("Johannes Kepler", 1571));
         */
-        List<Person> people = DataService.getPeople();
+        List<Person> people = dataService.getPeople();
 
 // Create a grid bound to the list
         Grid<Person> grid = new Grid<>(Person.class, false);
