@@ -15,6 +15,7 @@
         <module>mds-framework-dependencies</module>
         <module>mds-framework-module</module>
         <module>mds-framework-api</module>
+        <module>mds-framework-automated-testing</module>
     </modules>
 
     <parent>
@@ -22,9 +23,5 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.7</version>
     </parent>
-
-
-
-
 
 </project>

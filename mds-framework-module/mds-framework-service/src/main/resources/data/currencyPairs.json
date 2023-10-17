@@ -1,0 +1,18 @@
+[
+  {
+    "currencyPairs": "USD/HKD",
+    "id": "0"
+  },
+  {
+    "currencyPairs": "USD/CNY",
+    "id": "1"
+  },
+  {
+    "currencyPairs": "HKD/CNY",
+    "id": "2"
+  },
+  {
+    "currencyPairs": "EUR/USD",
+    "id": "3"
+  }
+]

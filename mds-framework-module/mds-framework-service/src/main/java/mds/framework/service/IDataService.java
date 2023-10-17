@@ -26,6 +26,8 @@ public interface IDataService {
 
     List<Country> getCountries();
 
+    List<CurrencyPairs> getCurrencyPairs();
+
     List<UserPermissions> getUserPermissions();
 
     List<Report> getReports();

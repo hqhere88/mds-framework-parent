@@ -1,11 +1,7 @@
 package mds.framework.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mds.framework.entity.Country;
-import mds.framework.entity.Person;
-import mds.framework.entity.Card;
-import mds.framework.entity.Report;
-import mds.framework.entity.UserPermissions;
+import mds.framework.entity.*;
 import mds.framework.service.IDataService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -99,6 +95,11 @@ public class DataServiceImpl implements IDataService {
     @Override
     public List<Country> getCountries() {
         return Arrays.asList(Objects.requireNonNull(getItems(Country[].class, "countries.json")));
+    }
+
+    @Override
+    public List<CurrencyPairs> getCurrencyPairs() {
+        return Arrays.asList(Objects.requireNonNull(getItems(CurrencyPairs[].class, "CurrencyPairs.json")));
     }
 
     @Override

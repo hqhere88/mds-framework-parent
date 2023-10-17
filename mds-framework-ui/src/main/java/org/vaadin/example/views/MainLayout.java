@@ -20,6 +20,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
+import org.vaadin.example.views.MenuBar.MenuBarView;
 import org.vaadin.example.views.Message.MessagesBasic;
 import org.vaadin.example.views.empty.EmptyView;
 import org.vaadin.example.views.helloworld.HelloWorldView;
@@ -171,6 +172,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Messages-basic", "la la-th", MessagesBasic.class), //
 
                 new MenuItemInfo("List", "la la-th", ListView.class), //
+                new MenuItemInfo("Menu-Bar-View", "la la-th", MenuBarView.class), //
 /*
                 new MenuItemInfo("Credit Card Form", "la la-credit-card", CreditCardFormView.class), //
 

@@ -53,8 +53,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
     <repositories>
         <!-- The order of definitions matters. Explicitly defining central here to make sure it has the highest priority. -->
 
