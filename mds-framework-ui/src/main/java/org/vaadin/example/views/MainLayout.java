@@ -18,7 +18,6 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import org.vaadin.example.views.MenuBar.MenuBarView;
 import org.vaadin.example.views.Message.MessagesBasic;
@@ -48,54 +47,22 @@ import org.vaadin.example.views.masterdetail.MasterDetailView;
 )
 public class MainLayout extends AppLayout {
 
-    /**
-     * A simple navigation item component, based on ListItem element.
-     */
-    public static class MenuItemInfo extends ListItem {
-
-        private final Class<? extends Component> view;
-
-        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
-            this.view = view;
-            RouterLink link = new RouterLink();
-            // Use Lumo classnames for various styling
-            link.addClassNames("flex", "mx-s", "p-s", "relative", "text-secondary");
-            link.setRoute(view);
-
-            Span text = new Span(menuTitle);
-            // Use Lumo classnames for various styling
-            text.addClassNames("font-medium", "text-s");
-
-            link.add(new LineAwesomeIcon(iconClass), text);
-            add(link);
-        }
-
-        public Class<?> getView() {
-            return view;
-        }
-
-        /**
-         * Simple wrapper to create icons using LineAwesome iconset. See
-         * https://icons8.com/line-awesome
-         */
-        @NpmPackage(value = "line-awesome", version = "1.3.0")
-        public static class LineAwesomeIcon extends Span {
-            public LineAwesomeIcon(String lineawesomeClassnames) {
-                // Use Lumo classnames for suitable font size and margin
-                addClassNames("me-s", "text-l");
-                if (!lineawesomeClassnames.isEmpty()) {
-                    addClassNames(lineawesomeClassnames);
-                }
-            }
-        }
-
-    }
+  //  private final SecurityService securityService;
 
     private H1 viewTitle;
 
     public MainLayout() {
-        setPrimarySection(Section.DRAWER);
+    //    this.securityService = securityService;
+        createHeader();
+        createDrawer();
+    }
+
+    private void createHeader() {
         addToNavbar(true, createHeaderContent());
+    }
+
+    private void createDrawer() {
+        setPrimarySection(Section.DRAWER);
         addToDrawer(createDrawerContent());
     }
 
@@ -105,11 +72,11 @@ public class MainLayout extends AppLayout {
         toggle.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
-
         viewTitle = new H1();
         //viewTitle.addClassNames("text-l", "m-m");
         viewTitle.addClassNames("m-0", "text-l");
         Button logout = new Button("Log out", e -> Notification.show("Hello "));
+      //  Button logout = new Button("Log out", e -> securityService.logout());
 
         Avatar avatar = new Avatar("logo");
         avatar.setImage("images/logo.png");
@@ -202,5 +169,47 @@ public class MainLayout extends AppLayout {
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
+    }
+
+    /**
+     * A simple navigation item component, based on ListItem element.
+     */
+    public static class MenuItemInfo extends ListItem {
+
+        private final Class<? extends Component> view;
+
+        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
+            this.view = view;
+            RouterLink link = new RouterLink();
+            // Use Lumo classnames for various styling
+            link.addClassNames("flex", "mx-s", "p-s", "relative", "text-secondary");
+            link.setRoute(view);
+
+            Span text = new Span(menuTitle);
+            // Use Lumo classnames for various styling
+            text.addClassNames("font-medium", "text-s");
+
+            link.add(new LineAwesomeIcon(iconClass), text);
+            add(link);
+        }
+
+        public Class<?> getView() {
+            return view;
+        }
+
+        /**
+         * Simple wrapper to create icons using LineAwesome iconset. See
+         * https://icons8.com/line-awesome
+         */
+        @NpmPackage(value = "line-awesome", version = "1.3.0")
+        public static class LineAwesomeIcon extends Span {
+            public LineAwesomeIcon(String lineawesomeClassnames) {
+                // Use Lumo classnames for suitable font size and margin
+                addClassNames("me-s", "text-l");
+                if (!lineawesomeClassnames.isEmpty()) {
+                    addClassNames(lineawesomeClassnames);
+                }
+            }
+        }
     }
 }
