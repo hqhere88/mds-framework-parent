@@ -7,6 +7,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import org.vaadin.example.IpUtil;
 import org.vaadin.example.views.MainLayout;
 
 @PageTitle("Empty")
@@ -23,6 +24,10 @@ public class EmptyView extends VerticalLayout {
 
         add(new H2("This place intentionally left empty"));
         add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
+
+        String ipAddress = IpUtil.getLocalIP();
+        System.out.println("ipAddress:"+ipAddress);
+        add(new H2("ipAddress"+ipAddress));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);

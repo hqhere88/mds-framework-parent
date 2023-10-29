@@ -26,6 +26,8 @@ import org.vaadin.example.views.empty.EmptyView;
 import org.vaadin.example.views.helloworld.HelloWorldView;
 import org.vaadin.example.views.list.ListView;
 import com.vaadin.flow.component.button.Button;
+import org.vaadin.example.views.masterdetail.MasterDetailView;
+
 /**
  * The main view is a top-level placeholder for other views.
  */
@@ -173,6 +175,7 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("List", "la la-th", ListView.class), //
                 new MenuItemInfo("Menu-Bar-View", "la la-th", MenuBarView.class), //
+                new MenuItemInfo("Master Detail", "la la-columns", MasterDetailView.class), //
 /*
                 new MenuItemInfo("Credit Card Form", "la la-credit-card", CreditCardFormView.class), //
 

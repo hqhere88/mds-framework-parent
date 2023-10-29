@@ -48,6 +48,8 @@ public class Person {
     @NotBlank
     private String status;
 
+    private boolean important;
+
     public String getFirstName() {
         return firstName;
     }
@@ -172,5 +174,13 @@ public class Person {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public boolean isImportant() {
+        return important;
+    }
+    public void setImportant(boolean important) {
+        this.important = important;
+    }
+
 }
 // end::snippet[]

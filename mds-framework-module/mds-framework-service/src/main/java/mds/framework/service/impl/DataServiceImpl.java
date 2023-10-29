@@ -44,6 +44,14 @@ public class DataServiceImpl implements IDataService {
     }
 
     @Override
+    public List<Person> getPeopleById(Integer id) {
+        List<Person> people = new ArrayList<>(getPeople());
+        people.removeIf(person -> person.getId() == null
+                || !person.getId().equals(id));
+        return people;
+    }
+
+    @Override
     public List<Person> getPeople(int count) {
         return getPeople().subList(0, count);
     }

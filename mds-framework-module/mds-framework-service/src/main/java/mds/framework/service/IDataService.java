@@ -8,6 +8,8 @@ public interface IDataService {
 
     <T> T getItems(Class<T> clazz, String dataFileName);
 
+    List<Person> getPeopleById(Integer id);
+
     List<Person> getPeople();
 
     List<Person> getPeople(int count);
